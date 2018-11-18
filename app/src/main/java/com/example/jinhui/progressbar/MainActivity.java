@@ -28,9 +28,12 @@ public class MainActivity extends AppCompatActivity {
             progressBar01.setProgress(++progress);
             circleProgressBar.setProgress(++progress);
             if (progress >= 100){
+                progressBar01.test();
                 handler.removeMessages(MSG_UPDATE);
+            }else {
+                handler.sendEmptyMessageDelayed(MSG_UPDATE, 100);
             }
-            handler.sendEmptyMessageDelayed(MSG_UPDATE, 100);
+//            handler.sendEmptyMessageDelayed(MSG_UPDATE, 100);
         }
     };
 

@@ -18,6 +18,10 @@ import android.widget.ProgressBar;
  * 横向进度条
  * <p>
  * 需要找绘制的图形详解图，带文字讲解的那种
+ *
+ * 方法依次执行顺序onMeasure->onLayout->onDraw
+ *
+ * requestLayout: onMeasure->onLayout
  */
 public class HorizontalProgressBarWithProgress extends ProgressBar {
 
@@ -89,6 +93,12 @@ public class HorizontalProgressBarWithProgress extends ProgressBar {
 
     }
 
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        Log.e(TAG, "onLayout: ");
+    }
+
     /**
      * 控件的测量
      *
@@ -133,12 +143,6 @@ public class HorizontalProgressBarWithProgress extends ProgressBar {
 
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        Log.e(TAG, "onLayout: ");
-    }
-
-    @Override
     protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Log.e(TAG, "onDraw: ");
@@ -181,6 +185,7 @@ public class HorizontalProgressBarWithProgress extends ProgressBar {
         // 恢复canvas
         canvas.restore();
 
+
     }
 
     /**
@@ -205,4 +210,8 @@ public class HorizontalProgressBarWithProgress extends ProgressBar {
                 getResources().getDisplayMetrics());
     }
 
+    public void test() {
+        Log.e(TAG, "test: 达到100%");
+//        requestLayout();  // 仅仅测试方法而已
+    }
 }
